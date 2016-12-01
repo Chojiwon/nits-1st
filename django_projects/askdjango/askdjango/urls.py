@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', blog_views.post_list, name='post_list'),
     url(r'^sum/(?P<numbers>[\d\/]+)/$', dojo_views.mysum),
+    url(r'^hello/(?P<name>[ㄱ-힣]+)/(?P<age>\d+)/$', dojo_views.hello),
 ]
