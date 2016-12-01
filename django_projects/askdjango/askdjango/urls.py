@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from blog import views
+from blog import views as blog_views
+from dojo import views as dojo_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.post_list, name='post_list'),
+    url(r'^$', blog_views.post_list, name='post_list'),
+    url(r'^sum/(?P<x>\d+)/$', dojo_views.mysum),
+    url(r'^sum/(?P<x>\d+)/(?P<y>\d+)/$', dojo_views.mysum),
+    url(r'^sum/(?P<x>\d+)/(?P<y>\d+)/(?P<z>\d+)/$', dojo_views.mysum),
 ]
