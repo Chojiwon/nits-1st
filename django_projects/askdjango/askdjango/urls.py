@@ -21,6 +21,7 @@ from dojo import views as dojo_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', blog_views.post_list, name='post_list'),
+    url(r'^(?P<pk>\d+)/$', blog_views.post_detail, name='post_detail'),
     url(r'^sum/(?P<numbers>[\d\/]+)/$', dojo_views.mysum),
     url(r'^hello/(?P<name>[ㄱ-힣]+)/(?P<age>\d+)/$', dojo_views.hello),
 ]
