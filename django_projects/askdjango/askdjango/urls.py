@@ -13,7 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import include, url
 from django.contrib import admin
 from blog import views as blog_views
 from dojo import views as dojo_views
@@ -25,3 +26,10 @@ urlpatterns = [
     url(r'^sum/(?P<numbers>[\d\/]+)/$', dojo_views.mysum),
     url(r'^hello/(?P<name>[ㄱ-힣]+)/(?P<age>\d+)/$', dojo_views.hello),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
+
