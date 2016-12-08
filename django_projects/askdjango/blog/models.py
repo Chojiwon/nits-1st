@@ -7,6 +7,7 @@ class Post(models.Model):
     author = models.CharField(max_length=20)
     tags = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    tag_set = models.ManyToManyField('Tag', blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -18,4 +19,11 @@ class Comment(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
