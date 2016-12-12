@@ -2,9 +2,28 @@
 <form action="" method="post">
     {% csrf_token %}
 
-    <table>
-        {{ form }}
-    </table>
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+
+    <ul>
+        {% for field in form.visible_fields %}
+        <li>
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.help_text }}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </li>
+        {% endfor %}
+
+        {% comment %}
+            {{ form.title }}
+            {{ form.title.label_tag }}
+            {{ form.title.errors }}
+        {% endcomment %}
+    </ul>
     <input type="submit" />
 </form>
 
