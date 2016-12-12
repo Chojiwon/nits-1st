@@ -21,9 +21,8 @@ from dojo import views as dojo_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('blog.urls')),
-    url(r'^sum/(?P<numbers>[\d\/]+)/$', dojo_views.mysum, name='mysum'),
-    url(r'^hello/(?P<name>[ㄱ-힣]+)/(?P<age>\d+)/$', dojo_views.hello, name='hello'),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^dojo/', include('dojo.urls', namespace='dojo')),
 ]
 
 if settings.DEBUG:
