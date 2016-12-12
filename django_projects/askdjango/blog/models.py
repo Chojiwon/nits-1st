@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -12,6 +13,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        # return '/blog/{}'.format(self.pk)
+        return reverse('blog:post_detail', args=[self.pk])
 
 
 class Comment(models.Model):
