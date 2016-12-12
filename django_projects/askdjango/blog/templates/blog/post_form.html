@@ -1,3 +1,9 @@
+<style>
+.errors {
+    font-weight: bold;
+    color: red;
+}
+</style>
 
 <form action="" method="post">
     {% csrf_token %}
@@ -12,9 +18,13 @@
             {{ field.label_tag }}
             {{ field }}
             {{ field.help_text }}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
+            {% if field.errors %}
+                <ul class="errors">
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
         </li>
         {% endfor %}
 
