@@ -62,10 +62,14 @@ def post_edit(request, pk):
 
 
 def comment_new(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save()
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
             return redirect(comment.post) #  ... not iterable
     else:
         form = CommentForm()
