@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Post
+from .models import Post, Comment
 
 
 def min_length_10_validator(value):
@@ -18,4 +18,10 @@ class PostModelForm(forms.ModelForm):
         model = Post
         # fields = '__all__'
         fields = ['title', 'content']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
