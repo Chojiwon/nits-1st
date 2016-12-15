@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.models import Post, Comment
@@ -32,6 +33,8 @@ def post_new(request):
             post.author = request.META['REMOTE_ADDR']
             post.save()
 
+            messages.success(request, '새 포스팅을 저장했습니다.')
+
             # return redirect('blog:post_detail', post.id)
             # return redirect(post.get_absolute_url())
             return redirect(post)
@@ -50,6 +53,9 @@ def post_edit(request, pk):
         form = PostModelForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save()  # ModelForm way
+
+            messages.success(request, '포스팅을 수정했습니다.')
+
             # return redirect('blog:post_detail', post.id)
             # return redirect(post.get_absolute_url())
             return redirect(post)
@@ -70,6 +76,9 @@ def comment_new(request, post_pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
+
+            messages.success(request, '새 댓글을 저장했습니다.')
+
             return redirect(comment.post) #  ... not iterable
     else:
         form = CommentForm()
@@ -85,6 +94,9 @@ def comment_edit(request, post_pk, pk):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             comment = form.save()
+
+            messages.success(request, '댓글을 수정했습니다.')
+
             return redirect(comment.post)
     else:
         form = CommentForm(instance=comment)

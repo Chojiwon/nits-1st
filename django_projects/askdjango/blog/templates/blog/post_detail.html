@@ -1,3 +1,14 @@
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>
+        {{ message.tags }} : {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <h1>{{ post.title }}</h1>
 
 <p>by {{ post.author }}</p>
