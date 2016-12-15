@@ -28,7 +28,9 @@ def post_new(request):
         form = PostModelForm(request.POST)
         if form.is_valid():
             post = form.save()  # ModelForm way
-            return redirect('blog:post_list')
+            # return redirect('blog:post_detail', post.id)
+            # return redirect(post.get_absolute_url())
+            return redirect(post)
     else:
         form = PostModelForm()
 
