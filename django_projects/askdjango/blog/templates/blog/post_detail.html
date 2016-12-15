@@ -1,13 +1,6 @@
+{% extends "blog/base.html" %}
 
-{% if messages %}
-<ul>
-    {% for message in messages %}
-    <li>
-        {{ message.tags }} : {{ message }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% block content %}
 
 <h1>{{ post.title }}</h1>
 
@@ -29,4 +22,5 @@
 <a href="{% url "blog:post_list" %}">목록</a>
 <a href="{% url "blog:post_edit" post.pk %}">수정</a>
 <a href="{% url "blog:comment_new" post.pk %}">댓글쓰기</a>
+{% endblock %}
 
