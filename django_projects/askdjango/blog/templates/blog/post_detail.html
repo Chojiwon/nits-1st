@@ -3,6 +3,15 @@
 <p>by {{ post.author }}</p>
 
 {{ post.content }}
+<gr/>
+
+<ul>
+{% for comment in post.comment_set.all %}
+<li>
+    {{ comment.message }} at {{ comment.created_at }}
+</li>
+{% endfor %}
+</ul>
 
 <hr/>
 <a href="{% url "blog:post_list" %}">목록</a>
