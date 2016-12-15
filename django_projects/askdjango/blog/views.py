@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.models import Post
-from blog.forms import PostForm
+from blog.forms import PostForm, PostModelForm
 
 
 def post_list(request):
@@ -25,17 +25,12 @@ def post_detail(request, pk):
 
 def post_new(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostModelForm(request.POST)
         if form.is_valid():
-            Post.objects.create(**form.cleaned_data)
-#           post = Post(
-#               title=form.cleaned_data['title'],
-#               content=form.cleaned_data['content'],
-#               author=form.cleaned_data['author'])
-#           post.save()
+            post = form.save()  # ModelForm way
             return redirect('blog:post_list')
     else:
-        form = PostForm()
+        form = PostModelForm()
 
     return render(request, 'blog/post_form.html', {
         'form': form,
