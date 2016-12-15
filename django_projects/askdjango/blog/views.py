@@ -38,3 +38,21 @@ def post_new(request):
         'form': form,
     })
 
+
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = PostModelForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save()  # ModelForm way
+            # return redirect('blog:post_detail', post.id)
+            # return redirect(post.get_absolute_url())
+            return redirect(post)
+    else:
+        form = PostModelForm(instance=post)
+
+    return render(request, 'blog/post_form.html', {
+        'form': form,
+    })
+

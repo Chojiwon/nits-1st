@@ -1,3 +1,8 @@
 <h1>{{ post.title }}</h1>
 
 {{ post.content }}
+
+<hr/>
+<a href="{% url "blog:post_list" %}">목록</a>
+<a href="{% url "blog:post_edit" post.pk %}">수정</a>
+
