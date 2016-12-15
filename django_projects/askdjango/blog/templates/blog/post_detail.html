@@ -9,6 +9,7 @@
 {% for comment in post.comment_set.all %}
 <li>
     {{ comment.message }} at {{ comment.created_at }}
+    <a href="{% url "blog:comment_edit" post.pk comment.pk %}">수정</a>
 </li>
 {% endfor %}
 </ul>
