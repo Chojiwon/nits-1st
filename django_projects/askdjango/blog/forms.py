@@ -17,5 +17,5 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         # fields = '__all__'
-        fields = ['title', 'content', 'author']
+        fields = ['title', 'content']
 

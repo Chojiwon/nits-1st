@@ -24,10 +24,14 @@ def post_detail(request, pk):
 
 
 def post_new(request):
+
     if request.method == 'POST':
         form = PostModelForm(request.POST)
         if form.is_valid():
-            post = form.save()  # ModelForm way
+            post = form.save(commit=False)  # ModelForm way
+            post.author = request.META['REMOTE_ADDR']
+            post.save()
+
             # return redirect('blog:post_detail', post.id)
             # return redirect(post.get_absolute_url())
             return redirect(post)
