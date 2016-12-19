@@ -6,7 +6,7 @@ from django.db import models
 class Post(models.Model):
     title = models.CharField(max_length=100, validators=[MinLengthValidator(3)])
     content = models.TextField()
-    photo = models.ImageField(blank=True)
+    photo = models.ImageField(blank=True, upload_to='blog/post/%Y/%m/%d')
     author = models.CharField(max_length=20)
     tags = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
