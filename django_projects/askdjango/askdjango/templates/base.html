@@ -36,6 +36,11 @@ body { margin-bottom: 60px; }
         {% endfor %}
     {% endif %}
 
+    <ul>
+    {% block sidebar %}
+    {% endblock %}
+    </ul>
+
     {% block content %}
     {% endblock %}
 

@@ -1,5 +1,12 @@
 {% extends "blog/base.html" %}
 
+{% block sidebar %}
+    {{ block.super }}
+    <li>post_list 만의 메뉴 1</li>
+    <li>post_list 만의 메뉴 2</li>
+    <li>post_list 만의 메뉴 3</li>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="jumbotron">
