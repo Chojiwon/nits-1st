@@ -27,7 +27,7 @@ def post_detail(request, pk):
 def post_new(request):
 
     if request.method == 'POST':
-        form = PostModelForm(request.POST)
+        form = PostModelForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)  # ModelForm way
             post.author = request.META['REMOTE_ADDR']
@@ -50,7 +50,7 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == 'POST':
-        form = PostModelForm(request.POST, instance=post)
+        form = PostModelForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()  # ModelForm way
 
