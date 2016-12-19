@@ -6,6 +6,18 @@
 
 <p>by {{ post.author }}</p>
 
+{% if post.photo %}
+    <img src="{{ post.photo.url }}" />
+    <ul>
+        <li>
+            url : {{ post.photo.url }}
+        </li>
+        <li>
+            path : {{ post.photo.path }}
+    </li>
+    </ul>
+{% endif %}
+
 {{ post.content }}
 <gr/>
 
