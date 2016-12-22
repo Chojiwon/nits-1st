@@ -1,6 +1,9 @@
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from blog.utils import thumbnail
 
 
 class Post(models.Model):
@@ -19,6 +22,16 @@ class Post(models.Model):
     def get_absolute_url(self):
         # return '/blog/{}'.format(self.pk)
         return reverse('blog:post_detail', args=[self.pk])
+
+def on_pre_save_post(sender, **kwargs):
+    post = kwargs['instance']
+    if post.photo:
+        max_width = 300
+        if post.photo.width > max_width or post.photo.height > max_width:
+            processed_f = thumbnail(post.photo.file, max_width, max_width)
+            post.photo.save(post.photo.name, File(processed_f))
+
+pre_save.connect(on_pre_save_post, sender=Post)
 
 
 class Comment(models.Model):
