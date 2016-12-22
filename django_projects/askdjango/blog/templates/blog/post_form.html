@@ -11,6 +11,14 @@
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
+    {# form.errors #}
+
+    <table>
+        {{ form.as_table }}
+    </table>
+
+    {% comment %}
+
     {% for field in form.hidden_fields %}
         {{ field }}
     {% endfor %}
@@ -31,12 +39,11 @@
         </li>
         {% endfor %}
 
-        {% comment %}
             {{ form.title }}
             {{ form.title.label_tag }}
             {{ form.title.errors }}
-        {% endcomment %}
     </ul>
+    {% endcomment %}
     <input type="submit" />
 </form>
 {% endblock %}

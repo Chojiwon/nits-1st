@@ -27,6 +27,13 @@ class PostModelForm(forms.ModelForm):
             title = title.strip()  # 좌우 화이트 스페이스를 제거
         return title
 
+    def clean(self):
+        title = self.cleaned_data.get('title', '')
+        content = self.cleaned_data.get('content', '')
+        if len(title) + len(content) < 40:
+            raise ValidationError('글자와 제목의 길이 합이 40자 이상 되도록 입력해주세요.')
+        return self.cleaned_data
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
