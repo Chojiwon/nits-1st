@@ -29,7 +29,7 @@ def on_pre_save_post(sender, **kwargs):
         max_width = 300
         if post.photo.width > max_width or post.photo.height > max_width:
             processed_f = thumbnail(post.photo.file, max_width, max_width)
-            post.photo.save(post.photo.name, File(processed_f))
+            post.photo.save(post.photo.name, File(processed_f), save=False)
 
 pre_save.connect(on_pre_save_post, sender=Post)
 
