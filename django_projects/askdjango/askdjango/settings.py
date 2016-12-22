@@ -138,3 +138,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INTERNAL_IPS = ['127.0.0.1']
 
+NAVER_CLIENT_ID = 'q768Dik7KEKSuu2Eodwy'  # nits 1st

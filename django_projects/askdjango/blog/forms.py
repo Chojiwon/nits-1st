@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Post, Comment
+from .widgets import NaverMapPointWidget
 
 
 def min_length_10_validator(value):
@@ -17,7 +18,10 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         # fields = '__all__'
-        fields = ['title', 'content', 'photo']
+        fields = ['title', 'content', 'point', 'photo']
+        widgets = {
+            'point': NaverMapPointWidget,
+        }
 
     def clean_title(self):
         title = self.cleaned_data.get('title', None)
