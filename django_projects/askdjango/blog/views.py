@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -25,12 +26,14 @@ def post_detail(request, pk):
 
 
 def post_new(request):
-
     if request.method == 'POST':
         form = PostModelForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)  # ModelForm way
             post.author = request.META['REMOTE_ADDR']
+            # 로그인 상황에서는 정상처리
+            # 로그아웃 상황에서는 오류상황, request.user 는 AnonymousUser 인스턴스이기 때문
+            post.writer = request.user
             post.save()
 
             messages.success(request, '새 포스팅을 저장했습니다.')
