@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator, MinLengthValidator
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import pre_save
 from blog.utils import thumbnail
@@ -12,6 +14,7 @@ class Post(models.Model):
     photo = models.ImageField(blank=True, upload_to='blog/post/%Y/%m/%d')
     point = models.CharField(max_length=100, blank=True,
             validators=[RegexValidator(r'^[+-]?[\d\.]+,[+-]?[\d\.]+$')])
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL)  #'auth.User')
     author = models.CharField(max_length=20)
     tags = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
