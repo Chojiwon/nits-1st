@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from accounts.forms import SignupForm
 
@@ -16,6 +17,10 @@ def signup(request):
     })
 
 
+@login_required
 def profile(request):
+#   if not request.user.is_authenticated():
+#       return redirect(settings.LOGIN_URL + '?next=' + request.get_full_path())
+
     return render(request, 'accounts/profile.html')
 
