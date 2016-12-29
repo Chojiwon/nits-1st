@@ -100,7 +100,8 @@ def comment_new(request, post_pk):
                 messages.success(request, '새 댓글을 저장했습니다.')
                 return redirect(comment.post) #  ... not iterable
         else:
-            return {'ok': False, 'errors': form.errors}
+            if request.is_ajax():
+                return {'ok': False, 'errors': form.errors}
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {
