@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.models import Post, Comment
 from blog.forms import PostForm, PostModelForm, CommentForm
@@ -86,9 +86,15 @@ def comment_new(request, post_pk):
             comment.post = post
             comment.save()
 
+            if request.is_ajax():
+                return JsonResponse({'ok': True, 'flash_message': '새 댓글을 저장했습니다.'})
+
             messages.success(request, '새 댓글을 저장했습니다.')
 
             return redirect(comment.post) #  ... not iterable
+        else:
+            print('errors!')
+            return JsonResponse({'errors':form.errors})
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {
