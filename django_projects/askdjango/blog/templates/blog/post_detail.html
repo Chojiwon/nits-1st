@@ -31,14 +31,9 @@
 
 <hr/>
 
-<ul>
-{% for comment in post.comment_set.all %}
-<li>
-    {{ comment.message }} at {{ comment.created_at }}
-    <a href="{% url "blog:comment_edit" post.pk comment.pk %}">수정</a>
-</li>
-{% endfor %}
-</ul>
+<div id="comment_list">
+    {% include "blog/comment_list.html" with comment_list=post.comment_set.all %}
+</div>
 
 <hr/>
 <a href="{% url "blog:post_list" %}">목록</a>
@@ -48,9 +43,19 @@
 
 {% block extra_body %}
 <script>
+function refresh_comment_list() {
+    $.get('{% url "blog:comment_list" post.pk %}').done(function(html) {
+        $('#comment_list').html(html);
+    });
+}
+
 $(function() {
     $('#comment_form').ajaxForm({
         success: function(response, statusText, xhr, $form) {
+            if ( response.flash_message ) {
+                $.toast(response.flash_message, {type: 'info', duration: 1500});
+            }
+
             if ( response.errors ) {
                 $.each(response.errors, function(key, error_messages) {
                     $.each(error_messages, function(index, message) {
@@ -58,9 +63,8 @@ $(function() {
                     });
                 });
             }
-
-            if ( response.flash_message ) {
-                $.toast(response.flash_message, {type: 'info', duration: 1500});
+            else {
+                refresh_comment_list();
             }
         }
     });

@@ -1,0 +1,8 @@
+<ul>
+    {% for comment in comment_list %}
+    <li>
+        {{ comment.message }} at {{ comment.created_at }}
+        <a href="{% url "blog:comment_edit" comment.post.pk comment.pk %}">수정</a>
+    </li>
+    {% endfor %}
+</ul>

@@ -14,6 +14,7 @@ def post_list(request):
     # print(request.GET.getlist('name'))
     # print(request.POST)
     # print(request.FILES)
+
     return render(request, 'blog/post_list.html', {
         'post_list': Post.objects.all(),
     })
@@ -72,6 +73,13 @@ def post_edit(request, pk):
 
     return render(request, 'blog/post_form.html', {
         'form': form,
+    })
+
+
+def comment_list(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    return render(request, 'blog/comment_list.html', {
+        'comment_list': post.comment_set.all(),
     })
 
 
