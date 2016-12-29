@@ -3,7 +3,7 @@ from blog.models import Post
 
 
 def post_list(request):
-    return Post.objects.all()
+    return Post.objects.all().prefetch_related('tag_set')
 
 
 def recent_post_list(request):

@@ -29,13 +29,23 @@ class Post(models.Model):
         return reverse('blog:post_detail', args=[self.pk])
 
     def as_dict(self):
+        if self.photo:
+            photo_url = self.photo.url
+        else:
+            photo_url = None
+
         return {
             'id': self.id,
             'title': self.title,
             'content': self.content,
-            'created_at': self.created_at,
+            'photo_url': photo_url,
+            'point': self.point,
+            'writer': self.writer.username,
+            'author': self.author,
+            'tag_set': self.tag_set.all(),
             'updated_at': self.updated_at,
         }
+
 
 def on_pre_save_post(sender, **kwargs):
     post = kwargs['instance']
