@@ -70,6 +70,20 @@ $(function() {
     });
 
     // $('#comment_form').resetForm();
+
+    $(document).on('click', '.ajax-post', function() {
+        var url = $(this).attr('href');
+        var message = $(this).data('confirm-message');
+        if ( confirm(message) ) {
+            $.post(url).done(function(response) {
+                if ( response.flash_message ) {
+                    $.toast(response.flash_message, {type: 'info', duration: 1500});
+                }
+                refresh_comment_list();
+            });
+        }
+        return false;
+    });
 });
 </script>
 {% endblock %}

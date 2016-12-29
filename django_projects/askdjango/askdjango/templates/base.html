@@ -1,4 +1,4 @@
-<!doctype html>
+{% load staticfiles %}<!doctype html>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -56,6 +56,7 @@ body { margin-bottom: 60px; }
     {% endblock %}
 
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="{% static "jquery.csrf.js" %}"></script>
 <script src="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.js"></script>
 {% block extra_body %}
 {% endblock %}

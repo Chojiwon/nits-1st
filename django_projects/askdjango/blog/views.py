@@ -135,6 +135,8 @@ def comment_delete(request, post_pk, pk):
     if request.method == 'POST':
         comment.delete()
         messages.success(request, '댓글을 삭제했습니다.')
+        if request.is_ajax():
+            return JsonResponse({'ok': True, 'flash_message': '새 댓글을 삭제했습니다.'})
         return redirect(comment.post)
     return render(request, 'blog/comment_confirm_delete.html', {
         'comment': comment,
