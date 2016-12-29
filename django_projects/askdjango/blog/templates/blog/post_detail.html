@@ -19,7 +19,17 @@
 {% endif %}
 
 {{ post.content }}
-<gr/>
+<hr/>
+
+<form action="{% url "blog:comment_new" post.id %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ comment_form.as_table }}
+    </table>
+    <input type="submit" class="btn btn-primary btn-block" />
+</form>
+
+<hr/>
 
 <ul>
 {% for comment in post.comment_set.all %}
