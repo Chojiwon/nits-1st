@@ -21,7 +21,7 @@
 {{ post.content }}
 <hr/>
 
-<form action="{% url "blog:comment_new" post.id %}" method="post">
+<form id="comment_form" action="{% url "blog:comment_new" post.id %}" method="post">
     {% csrf_token %}
     <table>
         {{ comment_form.as_table }}
@@ -42,5 +42,32 @@
 <a href="{% url "blog:post_list" %}">목록</a>
 <a href="{% url "blog:post_edit" post.pk %}">수정</a>
 <a href="{% url "blog:comment_new" post.pk %}">댓글쓰기</a>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+$(function() {
+    $('#comment_form').ajaxForm({
+        success: function(response, statusText, xhr, $form) {
+            if ( response.flash_message ) {
+                // $.toast(response.flash_message, {type: 'info', duration: 1500});
+                $('#comment_form').resetForm();
+                alert(response.flash_message)
+            }
+            if ( response.errors ) {
+                $.each(response.errors, function(key, error_messages) {
+                    $.each(error_messages, function(index, message) {
+                        // $.toast(message, {type: 'danger', duration: 1500});
+                        alert(message);
+                    });
+                });
+            }
+            else {
+                // refresh_comment_list();
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
 
