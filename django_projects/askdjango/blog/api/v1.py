@@ -1,18 +1,17 @@
 from django.conf.urls import url
-from django.http import JsonResponse
 from blog.models import Post
-from askdjango.encoders import CustomDjangoJSONEncoder
 
 
 def post_list(request):
-    qs = Post.objects.all()
-    return JsonResponse(qs, encoder=CustomDjangoJSONEncoder, safe=False, json_dumps_params={
-        'indent': 4,
-        'ensure_ascii': False,
-    })
+    return Post.objects.all()
+
+
+def recent_post_list(request):
+    return Post.objects.all().order_by('-id')[:10]
 
 
 urlpatterns = [
     url(r'^posts/$', post_list, name='post_list'),
+    url(r'^posts/recent/$', recent_post_list, name='recent_post_list'),
 ]
 
