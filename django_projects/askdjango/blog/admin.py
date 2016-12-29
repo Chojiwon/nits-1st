@@ -4,15 +4,23 @@ from blog.models import Post, Comment, Tag
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'link', 'get_content_size', 'created_at', 'updated_at']
+    list_display = ['id', 'title', 'link', 'get_content_size', 'summary', 'created_at', 'updated_at']
     list_display_links = ['title', 'created_at']
     # list_editable = ['title']
     search_fields = ['title']
     list_filter = ['created_at', 'updated_at']
     actions = ['send_push']
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('comment_set')
+
     def link(self, post):
         return format_html('<a href="http://naver.com">라라랜드 실시간 보기</a>')
+
+    def summary(self, post):
+        comment_id_list = [str(comment.id) for comment in post.comment_set.all()]
+        return ','.join(comment_id_list)
 
     def get_content_size(self, post):
         return '{} 글자'.format(len(post.content))
