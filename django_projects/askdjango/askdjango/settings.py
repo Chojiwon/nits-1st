@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'accounts.providers.naver',
+    'accounts.providers.kakao',
     'debug_toolbar',
     'bootstrap3',
     'accounts',
