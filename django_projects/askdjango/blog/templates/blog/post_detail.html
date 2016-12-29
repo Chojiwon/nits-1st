@@ -72,6 +72,19 @@ $(function() {
             }
         }
     });
+
+    $('.ajax-post').click(function() {
+        var url = $(this).attr('href');
+        var confirm_message = $(this).data('confirm-message');
+        var target_id = $(this).data('target-id');
+        if ( confirm(confirm_message) ) {
+            $.post(url).done(function() {
+                $('#' + target_id).remove();
+                // refresh_comment_list();
+            });
+        }
+        return false;
+    });
 });
 </script>
 {% endblock %}

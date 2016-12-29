@@ -1,9 +1,12 @@
 <ul>
     {% for comment in comment_list %}
-    <li>
+    <li id="comment-{{ comment.id }}">
         {{ comment.message }} at {{ comment.created_at }}
         <a href="{% url "blog:comment_edit" comment.post.pk comment.pk %}">수정</a>
-        <a href="{% url "blog:comment_delete" comment.post.pk comment.pk %}">삭제</a>
+        <a href="{% url "blog:comment_delete" comment.post.pk comment.pk %}"
+           class="ajax-post"
+           data-confirm-message="댓글#{{ comment.id }}를 정말 삭제하시겠습니까?"
+           data-target-id="comment-{{ comment.id }}">삭제</a>
     </li>
     {% endfor %}
 </ul>
