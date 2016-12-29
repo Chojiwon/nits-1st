@@ -28,6 +28,15 @@ class Post(models.Model):
         # return '/blog/{}'.format(self.pk)
         return reverse('blog:post_detail', args=[self.pk])
 
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }
+
 def on_pre_save_post(sender, **kwargs):
     post = kwargs['instance']
     if post.photo:
