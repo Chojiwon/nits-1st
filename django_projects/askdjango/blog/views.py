@@ -75,6 +75,14 @@ def post_edit(request, pk):
     })
 
 
+def comment_list(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    comment_list = post.comment_set.all()
+    return render(request, 'blog/comment_list.html', {
+        'comment_list': comment_list,
+    })
+
+
 @login_required
 def comment_new(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
