@@ -73,7 +73,7 @@ $(function() {
         }
     });
 
-    $('.ajax-post').click(function() {
+    $(document).on('click', '.ajax-post', function() {
         var url = $(this).attr('href');
         var confirm_message = $(this).data('confirm-message');
         var target_id = $(this).data('target-id');
