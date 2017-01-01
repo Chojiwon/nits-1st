@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'accounts.providers.kakao',
+    'accounts.providers.naver',
     'debug_toolbar',
     'bootstrap3',
+    'channels',
     'accounts',
     'blog',
     'dojo',
@@ -71,6 +74,23 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'askdjango.urls'
+
+# Channel layer definitions
+# http://channels.readthedocs.org/en/latest/deploying.html#setting-up-a-channel-backend
+CHANNEL_LAYERS = {
+    'default': {
+        # 'BACKEND': 'asgi_redis.RedisChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [('localhost', 6379)],
+        # },
+
+        'BACKEND': 'asgi_ipc.IPCChannelLayer',
+
+        # 'BACKEND': 'asgiref.inmemory.ChannelLayer',
+
+        'ROUTING': 'askdjango.routing.channel_routing',
+    },
+}
 
 TEMPLATES = [
     {
