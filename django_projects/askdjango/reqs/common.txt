@@ -3,3 +3,7 @@ django-debug-toolbar
 django-allauth
 django-bootstrap3
 pillow
+channels
+asgi_ipc
+asgi_redis
+raven
