@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts.providers.naver',
     'debug_toolbar',
     'bootstrap3',
+    'channels',
     'raven.contrib.django.raven_compat',
     'accounts',
     'blog',
@@ -174,3 +175,9 @@ RAVEN_CONFIG = {
     'release': raven.fetch_git_sha(GIT_ROOT),
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_ipc.IPCChannelLayer',
+        'ROUTING': 'askdjango.routing.channel_routing',
+    },
+}
