@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.models import Post, Comment
 from blog.forms import PostForm, PostModelForm, CommentForm
+from blog.tasks import task_using_websocket
 
 
 def post_list(request):
@@ -22,10 +23,18 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comment_form = CommentForm()
+
     return render(request, 'blog/post_detail.html', {
         'post': post,
         'comment_form': comment_form,
     })
+
+
+def longtask(request, pk):
+    async_task = task_using_websocket.delay(request.session.session_key, 1, 10)
+    return {
+        'task_id': async_task.task_id,
+    }
 
 
 @login_required

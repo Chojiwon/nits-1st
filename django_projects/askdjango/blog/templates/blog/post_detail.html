@@ -21,6 +21,21 @@
 {{ post.content }}
 <hr/>
 
+<div class="progress">
+	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+	</div>
+</div>
+<a id="longtask" href="#" class="btn btn-block btn-default">LongTask 실행</a>
+<script>
+$(function() {
+    $('#longtask').click(function() {
+        $.post('{% url "blog:longtask" post.pk %}');
+        return false;
+    });
+});
+</script>
+<hr/>
+
 <!-- 채팅 메세지 입력 위젯 -->
 <input type="text" id="chat_text" placeholder="chat text" />
 <ul id="chat"></ul>
@@ -55,7 +70,15 @@ $(function() {
 
     chatsock.onmessage = function(message) {
         var data = JSON.parse(message.data);
-        $("#chat").append('<li>[' + data.username + '] ' + data.chat_text + ' </li>');
+        console.log(data);
+        if ( data.func == 'task_using_websocket' ) {
+            // $('#chat').append('<li>[task_using_websocket] :' + data.status + '</li>');
+            $('#longtask').html(data.status);
+            $('.progress-bar').css('width', data.percent+'%').attr('aria-valuenow', data.percent);
+        }
+        else {
+            $("#chat").append('<li>[' + data.username + '] ' + data.chat_text + ' </li>');
+        }
     };
 
     $('#chat_text').keydown(function(key) {
