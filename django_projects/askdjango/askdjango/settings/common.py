@@ -174,3 +174,9 @@ RAVEN_CONFIG = {
     'release': raven.fetch_git_sha(GIT_ROOT),
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_ipc.IPCChannelLayer',
+        'ROUTING': 'askdjango.routing.channel_routing',
+    },
+}
