@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'accounts.providers.kakao',
+    'accounts.providers.naver',
     'debug_toolbar',
     'bootstrap3',
+    'raven.contrib.django.raven_compat',
     'accounts',
     'blog',
     'dojo',
@@ -152,3 +155,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = ['127.0.0.1']
 
 NAVER_CLIENT_ID = 'q768Dik7KEKSuu2Eodwy'  # nits 1st
+
+import os
+import raven
+
+GIT_ROOT = os.path.join(BASE_DIR, '..', '..')  # FIXME: 프로젝트에 맞춰 수정
+
+RAVEN_CONFIG = {
+    # FIXME: 각자 설정에 맞춰 수정
+    # https://docs.sentry.io/clients/python/integrations/django/
+    'dsn': 'https://c1647f59f36e44f4833d5c6626695cd1:392001118d9d4e00b9dd0227bde8ede5@sentry.io/124899',
+    # If you are using git, you can also automatically configure the release based on the git info.
+    'release': raven.fetch_git_sha(GIT_ROOT),
+}
+
