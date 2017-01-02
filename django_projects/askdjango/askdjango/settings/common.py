@@ -156,6 +156,11 @@ INTERNAL_IPS = ['127.0.0.1']
 
 NAVER_CLIENT_ID = 'q768Dik7KEKSuu2Eodwy'  # nits 1st
 
+
+CELERY_BROKER_URL = 'amqp://'
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+
 import os
 import raven
 
