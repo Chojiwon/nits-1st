@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 from blog import views as blog_views
 from dojo import views as dojo_views
 
@@ -27,6 +28,7 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^dojo/', include('dojo.urls', namespace='dojo')),
     url(r'^shop/', include('shop.urls', namespace='shop')),
+    url(r'^$', lambda request: redirect('blog:post_list'), name='root'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
