@@ -9,6 +9,9 @@ urlpatterns = [
         'template_name': 'accounts/login_form.html',
         'authentication_form': LoginForm,
     }),
+    url(r'^logout/$', auth_views.logout, name='logout', kwargs={
+        'next_page': '/',  #'login',
+    }),
     url(r'^profile/$', views.profile, name='profile'),
 ]
 
