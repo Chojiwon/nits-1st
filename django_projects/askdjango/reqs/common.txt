@@ -6,4 +6,5 @@ pillow
 channels
 asgi_ipc
 asgi_redis
+celery
 raven
