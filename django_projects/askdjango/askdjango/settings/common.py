@@ -76,12 +76,12 @@ ROOT_URLCONF = 'askdjango.urls'
 # http://channels.readthedocs.org/en/latest/deploying.html#setting-up-a-channel-backend
 CHANNEL_LAYERS = {
     'default': {
-        # 'BACKEND': 'asgi_redis.RedisChannelLayer',
-        # 'CONFIG': {
-        #     'hosts': [('localhost', 6379)],
-        # },
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
 
-        'BACKEND': 'asgi_ipc.IPCChannelLayer',
+        # 'BACKEND': 'asgi_ipc.IPCChannelLayer',
 
         # 'BACKEND': 'asgiref.inmemory.ChannelLayer',
 
@@ -169,3 +169,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = ['127.0.0.1']
 
 NAVER_CLIENT_ID = 'q768Dik7KEKSuu2Eodwy'  # nits 1st
+
+CELERY_BROKER_URL = 'amqp://'
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
